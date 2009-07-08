@@ -5,9 +5,9 @@ class SmartTrailerSource < TrailerSource
   end
 
   def find_by_name(name)
-    trailer = @apple.find_by_name(name)
+    trailer = @apple.find_by_name(CGI.escape(name))
     if (!trailer)
-      trailer = @itms.find_by_name(name)
+      trailer = @itms.find_by_name(CGI.escape(name))
     end
     trailer
   end
