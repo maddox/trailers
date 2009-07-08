@@ -1,0 +1,7 @@
+trailers is a library that returns trailer videos given a movie name
+
+require 'trailers'
+
+source = SmartTrailerSource.new
+trailer = source.find_by_name(ARGV[0])
+puts "#{trailer.url}, #{trailer.source}" if trailer

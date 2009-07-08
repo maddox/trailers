@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+require 'rubygems'
+require 'open-uri'
+require 'nokogiri'
+require 'plist'
+require 'trailers/trailer'
+require 'trailers/trailer_source'
+require 'trailers/apple_trailer_source'
+require 'trailers/itms_trailer_source'
+require 'trailers/smart_trailer_source'
