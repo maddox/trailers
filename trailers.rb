@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 require 'rubygems'
+require 'cgi'
 require 'open-uri'
 require 'nokogiri'
 require 'plist'
