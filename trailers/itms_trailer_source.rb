@@ -1,6 +1,6 @@
 class ItmsTrailerSource < TrailerSource
   def find_by_name(name)
-    results = Plist.parse_xml(open("http://ax.search.itunes.apple.com/WebObjects/MZSearch.woa/wa/search?submit=edit&media=all&term=#{name}",
+    results = Plist.parse_xml(open("http://ax.search.itunes.apple.com/WebObjects/MZSearch.woa/wa/search?submit=edit&media=all&term=#{CGI.escape(name)}",
       {
         'User-Agent' => 'iTunes-iPhone/3.0 (3)',
         'X-Apple-Store-Front' => '143441-1,2',
@@ -14,7 +14,6 @@ class ItmsTrailerSource < TrailerSource
     items = results['items']
     if (items)
       matching_item = items.select { |item| item['media-type'] == 'video' && item['url-page-type'] == 'movie' && item['type'] == 'link' && item['title'].casecmp(name) == 0 }.first
-
       if (matching_item)
         movie_html = Nokogiri::HTML(open(matching_item['url'],
           {
