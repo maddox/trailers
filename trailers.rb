@@ -1,8 +1,10 @@
 #!/usr/bin/ruby
 require 'rubygems'
 require 'cgi'
+require 'json'
 require 'open-uri'
 require 'nokogiri'
+require 'hpricot'
 require 'plist'
 require 'trailers/trailer'
 require 'trailers/trailer_source'

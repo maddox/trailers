@@ -24,6 +24,7 @@ class ItmsTrailerSource < TrailerSource
             'X-Apple-Client-Application' => 'WiFi-Music'
           }
         ).read)
+
         preview_button = movie_html.css('.preview-button.video').first
         if (preview_button)
           trailer = Trailer.new
