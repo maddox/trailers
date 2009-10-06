@@ -13,7 +13,7 @@ class AppleTrailerSource < TrailerSource
 
   def find_by_name(name)
     trailer = @trailers[name.downcase]
-    if (!trailer.processed)
+    if (trailer && !trailer.processed)
       redirect_doc = open(trailer.url).read
       if (redirect_doc =~ /<meta http-equiv="refresh" content="1; URL=([^"]+)">/)
         trailer_doc = Hpricot(open("http://www.apple.com#{$1}"))
