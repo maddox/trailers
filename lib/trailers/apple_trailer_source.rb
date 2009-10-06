@@ -1,33 +1,43 @@
-class AppleTrailerSource < TrailerSource
-  def initialize
-    @trailers = {}
-    JSON.parse(open('http://www.apple.com/trailers/iphone/home/feeds/studios.json').read).each do |movie|
-      trailer = Trailer.new
-      trailer.name = movie['title']
-      trailer.processed = false
-      trailer.url = "http://www.apple.com#{movie['trailers'][0]['url']}"
-      trailer.source = 'apple'
-      @trailers[trailer.name.downcase] = trailer
-    end
-  end
+module Trailers
+  class AppleTrailerSource < TrailerSource
+    include HTTParty
+    base_uri 'www.apple.com'
+    format :json
 
-  def find_by_name(name)
-    trailer = @trailers[name.downcase]
-    if (trailer && !trailer.processed)
-      redirect_doc = open(trailer.url).read
-      if (redirect_doc =~ /<meta http-equiv="refresh" content="1; URL=([^"]+)">/)
-        trailer_doc = Hpricot(open("http://www.apple.com#{$1}"))
-      else
-        trailer_doc = Hpricot(redirect_doc)
-      end
-      trailer_embed = (trailer_doc/"embed").first
-      if (trailer_embed)
-        trailer.url = trailer_embed['href']
-        trailer.processed = true
-      else
-        trailer = nil
-      end
+    def initialize
     end
-    trailer
+    
+    # new Trailers.PosterSection('justadded', '/trailers/home/feeds/just_added.json'),
+    # new Trailers.PosterSection('exclusive', '/trailers/home/feeds/exclusive.json'),
+    # new Trailers.PosterSection('justhd', '/trailers/home/feeds/just_hd.json'),
+    # new Trailers.PosterSection('mostpopular', '/trailers/home/feeds/most_pop.json'),
+    # new Trailers.GenreSection('genres', '/trailers/home/feeds/genres.json'),
+    # new Trailers.StudioSection('moviestudios', '/trailers/home/feeds/studios.json'),
+    # new Trailers.SearchSection('quickfind', 'http://www.apple.com/trailers/home/scripts/quickfind.php?callback=searchCallback&q=')];
+    
+    def get_just_added
+      response = self.class.get("/trailers/home/feeds/just_added.json")
+      response.map{|m| Movie.new(m)}
+    end
+
+    def get_exclusive
+      response = self.class.get("/trailers/home/feeds/exclusive.json")
+      response.map{|m| Movie.new(m)}
+    end
+
+    def get_just_hd
+      response = self.class.get("/trailers/home/feeds/just_hd.json")
+      response.map{|m| Movie.new(m)}
+    end
+
+    def get_most_popular
+      response = self.class.get("/trailers/home/feeds/most_pop.json")
+      response.map{|m| Movie.new(m)}
+    end
+
+    def find_by_name(name)
+      response = self.class.get("/trailers/home/scripts/quickfind.php", :query => {:q => name})
+      response['results'].map{|m| Movie.new(m)}
+    end
   end
 end
