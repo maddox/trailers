@@ -4,13 +4,19 @@ module Trailers
     
     def initialize(options={})
       @title = options["title"]
-      @poster_url = options["poster"]
       @directors = options["directors"].split(', ') if options["directors"]
       @genres = options["genre"]
       @mpaa_rating = options["rating"]
       @studio = options["studio"]
       @actors = options["actors"]
       @release_date = Date.parse(options["releasedate"]) if options["releasedate"]
+      
+      # transform poster_url into the larger one
+      small_poster_url = options["poster"]
+      small_filename = small_poster_url.split('/').last
+      large_url = small_poster_url.gsub('trailers', 'moviesxml/s').gsub('/images/', '/posters/')
+      large_filename = small_filename.gsub(/_(\d+).jpg/, "_l" + '\1' + ".jpg")
+      @poster_url = large_url.gsub(small_filename, large_filename)
       
       # do trailer
       trailer_hash = options['trailers'][0]
