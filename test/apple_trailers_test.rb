@@ -10,7 +10,6 @@ class AppleTrailersTest < Test::Unit::TestCase
     context "when searching for a movie" do
       setup do
         @movies = @ats.find_by_name('a nightmare on elm street')
-        puts @movies.inspect
       end
     
       should "return an array" do

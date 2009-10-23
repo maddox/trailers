@@ -1,10 +1,10 @@
 module Trailers
   class AppleTrailerSource < TrailerSource
     include HTTParty
-    include HTTParty::Icebox
-    cache :store => 'file', :timeout => 600, :location => Dir.tmpdir
+    # include HTTParty::Icebox
+    # cache :store => 'file', :timeout => 600, :location => Dir.tmpdir
   
-    base_uri 'www.apple.com'
+    base_uri 'www.apple.com/trailers/home'
     format :json
 
     def initialize
@@ -19,27 +19,27 @@ module Trailers
     # new Trailers.SearchSection('quickfind', 'http://www.apple.com/trailers/home/scripts/quickfind.php?callback=searchCallback&q=')];
     
     def get_just_added
-      response = self.class.get("/trailers/home/feeds/just_added.json")
+      response = self.class.get("/feeds/just_added.json")
       response.map{|m| Movie.new(m)}
     end
 
     def get_exclusive
-      response = self.class.get("/trailers/home/feeds/exclusive.json")
+      response = self.class.get("/feeds/exclusive.json")
       response.map{|m| Movie.new(m)}
     end
 
     def get_just_hd
-      response = self.class.get("/trailers/home/feeds/just_hd.json")
+      response = self.class.get("/feeds/just_hd.json")
       response.map{|m| Movie.new(m)}
     end
 
     def get_most_popular
-      response = self.class.get("/trailers/home/feeds/most_pop.json")
+      response = self.class.get("/feeds/most_pop.json")
       response.map{|m| Movie.new(m)}
     end
 
     def find_by_name(name)
-      response = self.class.get("/trailers/home/scripts/quickfind.php", :query => {:q => name})
+      response = self.class.get("/scripts/quickfind.php", :query => {:q => name})
       response['results'].map{|m| Movie.new(m)}
     end
   end

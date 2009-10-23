@@ -10,7 +10,6 @@ class SmartSourceTest < Test::Unit::TestCase
     context "when searching for a theater movie" do
       setup do
         @trailer_url = @smart_source.find_by_name("A Nightmare On Elm Street")
-        puts @trailer_url.inspect
       end
 
       should "find the movie" do
@@ -22,7 +21,6 @@ class SmartSourceTest < Test::Unit::TestCase
     context "when searching for an old movie" do
       setup do
         @trailer_url = @smart_source.find_by_name("Die Hard")
-        puts @trailer_url.inspect
       end
 
       should "find the movie" do

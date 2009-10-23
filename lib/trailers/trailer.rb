@@ -24,8 +24,7 @@ module Trailers
     def retrieve_trailers
       found_urls = {}
       doc = Hpricot(open("http://www.apple.com" + location_url))
-      
-      doc = Hpricot(open("http://www.apple.com" + location_url + 'hd/')) unless doc.at(".480p")
+      doc = Hpricot(open("http://www.apple.com" + location_url + 'hd/')) unless doc.at(".large")
       
       found_urls['small'] = doc.at(".small")['href'] if doc.at(".small")
       found_urls['medium'] = doc.at(".medium")['href'] if doc.at(".medium")

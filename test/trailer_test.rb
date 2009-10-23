@@ -10,7 +10,7 @@ class TrailerTest < Test::Unit::TestCase
     
     context "when requesting a trailer from a normal page" do
       setup do
-        @trailer = @movies.first.trailer
+        @trailer = @movies[2].trailer
       end
     
       should "return an iphone trailer url" do
@@ -46,7 +46,7 @@ class TrailerTest < Test::Unit::TestCase
 
     context "when requesting a trailer from a specialty page" do
       setup do
-        @trailer = @movies[3].trailer
+        @trailer = @movies[2].trailer
       end
 
       should "return a 480p trailer url" do
