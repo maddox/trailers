@@ -9,22 +9,30 @@ class SmartSourceTest < Test::Unit::TestCase
     
     context "when searching for a theater movie" do
       setup do
-        @trailer_url = @smart_source.find_by_name("A Nightmare On Elm Street")
+        @movies = @smart_source.find_by_name("A Nightmare On Elm Street")
       end
 
-      should "find the movie" do
-        assert_match(/http/, @trailer_url)
+      should "return an array" do
+        assert_equal Array, @movies.class
+      end
+
+      should "return an array of movies" do
+        assert_equal Trailers::Movie, @movies.first.class
       end
     
     end
 
     context "when searching for an old movie" do
       setup do
-        @trailer_url = @smart_source.find_by_name("Die Hard")
+        @movies = @smart_source.find_by_name("Die Hard")
       end
 
-      should "find the movie" do
-        assert_match(/http/, @trailer_url)
+      should "return an array" do
+        assert_equal Array, @movies.class
+      end
+
+      should "return an array of movies" do
+        assert_equal Trailers::Movie, @movies.first.class
       end
     
     end

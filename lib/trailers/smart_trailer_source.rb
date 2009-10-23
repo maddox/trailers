@@ -6,13 +6,13 @@ module Trailers
     end
 
     def find_by_name(name)
-      movie = @amt.find_by_name(name).first
-      if movie
-        trailer_url = movie.trailer.trailer_url('iphone') if movie.title =~ /^#{name}$/i
+      movies = @amt.find_by_name(name)
+      if movies
+        movies
       else
-        trailer_url = @itms.find_by_name(name).trailer_url('iphone')
+        @itms.find_by_name(name)
       end
-      trailer_url
     end
+    
   end
 end
