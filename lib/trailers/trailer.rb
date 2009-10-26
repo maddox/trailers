@@ -24,14 +24,14 @@ module Trailers
         urls[format] ? urls[format] : trailer_url("480p")
       when "480p"
         urls[format] ? urls[format] : trailer_url("large")
-      when "large"
-        urls[format] ? urls[format] : trailer_url("medium")
-      when "medium"
-        urls[format] ? urls[format] : trailer_url("small")
-      when "small"
-        urls[format] ? urls[format] : trailer_url("iphone")
-      when "iphone"
-        urls[format] ? urls[format] : nil
+      when /large/i
+        urls["large"] ? urls["large"] : trailer_url("medium")
+      when /medium/i
+        urls["medium"] ? urls["medium"] : trailer_url("small")
+      when /small/i
+        urls["small"] ? urls["small"] : trailer_url("iphone")
+      when /iphone/i
+        urls["iphone"] ? urls["iphone"] : nil
       end
       
     end
@@ -50,7 +50,6 @@ module Trailers
       found_urls['720p'] = doc.at(".720p")['href'] if doc.at(".720p")
       found_urls['1080p'] = doc.at(".1080p")['href'] if doc.at(".1080p")
       found_urls['iphone'] = get_iphone_trailer
-
       found_urls
     end
     

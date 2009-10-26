@@ -5,7 +5,7 @@ class TrailerTest < Test::Unit::TestCase
   context "Trailer" do
     setup do
       @ats = Trailers::AppleTrailerSource.new
-      @movies = @ats.find_by_name('Toy Story 3')
+      @movies = @ats.find_by_name('transylmania')
       
     end
     
@@ -17,7 +17,7 @@ class TrailerTest < Test::Unit::TestCase
       should "return an iphone trailer url" do
         assert_match(/320i.mov/, @trailer.trailer_url('iphone'))
       end
-    
+          
       should "return a 480p trailer url" do
         assert_match(/480p.mov/, @trailer.trailer_url('480p'))
       end
@@ -29,18 +29,18 @@ class TrailerTest < Test::Unit::TestCase
       should "return a 1080p trailer url" do
         assert_match(/1080p.mov/, @trailer.trailer_url('1080p'))
       end
-      # 
-      # should "return a small trailer url" do
-      #   assert_match(/320.mov/, @trailer.trailer_url('small'))
-      # end
-      #     
-      # should "return a medium trailer url" do
-      #   assert_match(/480.mov/, @trailer.trailer_url('medium'))
-      # end
-      #     
-      # should "return a large trailer url" do
-      #   assert_match(/640.mov/, @trailer.trailer_url('large'))
-      # end
+      
+      should "return a small trailer url" do
+        assert_match(/320.mov/, @trailer.trailer_url('small'))
+      end
+          
+      should "return a medium trailer url" do
+        assert_match(/480.mov/, @trailer.trailer_url('medium'))
+      end
+          
+      should "return a large trailer url" do
+        assert_match(/640.mov/, @trailer.trailer_url('large'))
+      end
     end
 
 
