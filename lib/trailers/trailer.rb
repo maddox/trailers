@@ -16,7 +16,24 @@ module Trailers
     
     def trailer_url(format)
       @urls ||= retrieve_trailers
-      urls[format]
+
+      case format
+      when "1080p"
+        urls[format] ? urls[format] : trailer_url("720p")
+      when "720p"
+        urls[format] ? urls[format] : trailer_url("480p")
+      when "480p"
+        urls[format] ? urls[format] : trailer_url("large")
+      when "large"
+        urls[format] ? urls[format] : trailer_url("medium")
+      when "medium"
+        urls[format] ? urls[format] : trailer_url("small")
+      when "small"
+        urls[format] ? urls[format] : trailer_url("iphone")
+      when "iphone"
+        urls[format] ? urls[format] : nil
+      end
+      
     end
     
     private

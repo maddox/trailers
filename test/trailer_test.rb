@@ -17,7 +17,7 @@ class TrailerTest < Test::Unit::TestCase
       should "return an iphone trailer url" do
         assert_match(/320i.mov/, @trailer.trailer_url('iphone'))
       end
-
+    
       should "return a 480p trailer url" do
         assert_match(/480p.mov/, @trailer.trailer_url('480p'))
       end
@@ -44,6 +44,17 @@ class TrailerTest < Test::Unit::TestCase
     end
 
 
+
+    context "when requested size isn't actually there" do
+      setup do
+        @trailer = Trailers::Trailer.new
+        @trailer.urls = {"iphone" => 'http://iphone.mov'}
+      end
+    
+      should "travel all the way down to the next highest quality" do
+        assert_equal "http://iphone.mov", @trailer.trailer_url('1080p')
+      end
+    end
 
     # context "when requesting a trailer from a specialty page" do
     #   setup do
