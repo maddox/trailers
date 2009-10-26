@@ -1,8 +1,8 @@
 module Trailers
   class AppleTrailerSource < TrailerSource
     include HTTParty
-    # include HTTParty::Icebox
-    # cache :store => 'file', :timeout => 600, :location => Dir.tmpdir
+    include HTTParty::Icebox
+    cache :store => 'file', :timeout => 600, :location => Dir.tmpdir
   
     base_uri 'www.apple.com/trailers/home'
     format :json
