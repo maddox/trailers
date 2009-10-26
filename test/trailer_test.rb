@@ -5,7 +5,7 @@ class TrailerTest < Test::Unit::TestCase
   context "Trailer" do
     setup do
       @ats = Trailers::AppleTrailerSource.new
-      @movies = @ats.find_by_name('transylmania')
+      @movies = @ats.find_by_name('toy story 3')
       
     end
     

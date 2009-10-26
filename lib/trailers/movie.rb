@@ -22,7 +22,7 @@ module Trailers
         # do trailer
         trailer_hash = options['trailers'][0]
         # inject the url if its not already there, this happens on search results
-        trailer_hash['url'] = options['location'] unless trailer_hash['url']
+        trailer_hash['url'] = options['location']
         # make trailer
         @trailer = Trailer.new(trailer_hash)
       end
